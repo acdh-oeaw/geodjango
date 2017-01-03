@@ -1,6 +1,31 @@
-from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView
+from .models import RegionBorder
+from .forms import RegionBorderForm
 
 
-class AllRegions(TemplateView):
+class RegionBorderDetailView(DetailView):
 
-    template_name = "regions.html"
+    model = RegionBorder
+    template_name = 'world/regionboarder_detail.html'
+
+
+class RegionBorderListView(ListView):
+
+    model = RegionBorder
+    template_name = 'world/regionboarder_list.html'
+
+
+class RegionBorderCreate(CreateView):
+
+    model = RegionBorder
+    template_name = 'world/regionboarder_create.html'
+    form_class = RegionBorderForm
+
+
+class RegionBorderUpdate(UpdateView):
+
+    model = RegionBorder
+    form_class = RegionBorderForm
+    template_name = 'world/regionboarder_create.html'
