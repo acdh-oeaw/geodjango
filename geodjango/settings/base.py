@@ -29,11 +29,30 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'crispy_forms',
+    'django_spaghetti',
     'django_extensions',
+    'django_filters',
+    'django_tables2',
+    'rest_framework',
     'djgeojson',
     'leaflet',
+    'webpage',
     'world',
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap3"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
+    'PAGE_SIZE': 10
+}
+
+SPAGHETTI_SAUCE = {
+    'apps': ['world'],
+    'show_fields': False,
+    'exclude': {'auth': ['user']}
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
