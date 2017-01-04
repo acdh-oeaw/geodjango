@@ -125,7 +125,7 @@ world_shp = os.path.abspath(
 def import_austria(verbose=True):
     lm = LayerMapping(
         AustriaBorders, austria_shp, austria_mapping,
-        transform=False, encoding='utf-8',
+        transform=True, encoding='utf-8',
     )
     lm.save(strict=True, verbose=verbose)
 

@@ -1,6 +1,5 @@
 from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
-
 # automatically genereated by
 # $ python manage.py ogrinspect world/data/TM_WORLD_BORDERS/TM_WORLD_BORDERS-0.3.shp WorldBorder
 
@@ -19,8 +18,27 @@ class WorldBorder(models.Model):
     lat = models.FloatField()
     geom = models.MultiPolygonField()
 
+    @property
+    def centroid(self):
+        centroid = self.geom.centroid
+        coordinates = [centroid.y, centroid.x]
+        return coordinates
+
+    @property
+    def longitude(self):
+        centroid = self.geom.centroid
+        return centroid.y
+
+    @property
+    def latitude(self):
+        centroid = self.geom.centroid
+        return centroid.x
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('world:world_detail', kwargs={'pk': self.id})
 
 
 class RegionBorder(models.Model):
@@ -112,4 +130,26 @@ class AustriaBorders(models.Model):
     st_kz = models.IntegerField()
     st = models.CharField(max_length=50)
     fl = models.FloatField()
-    geom = models.MultiPolygonField(srid=3416)
+    geom = models.MultiPolygonField()
+
+    @property
+    def centroid(self):
+        centroid = self.geom.centroid
+        coordinates = [centroid.y, centroid.x]
+        return coordinates
+
+    @property
+    def longitude(self):
+        centroid = self.geom.centroid
+        return centroid.y
+
+    @property
+    def latitude(self):
+        centroid = self.geom.centroid
+        return centroid.x
+
+    def __str__(self):
+        return self.kg
+
+    def get_absolute_url(self):
+        return reverse('world:austria_detail', kwargs={'pk': self.id})

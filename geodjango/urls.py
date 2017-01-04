@@ -21,6 +21,8 @@ from world import api_views
 
 router = routers.DefaultRouter()
 router.register(r'regions', api_views.RegionBorderViewSet, base_name='region')
+router.register(r'world', api_views.WorldBorderViewSet, base_name='world')
+router.register(r'austria', api_views.AustriaBordersViewSet, base_name='austria')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

@@ -1,8 +1,5 @@
 from django.conf.urls import url
-from django.views.generic import TemplateView
-from djgeojson.views import GeoJSONLayerView
-from .models import WorldBorder
-from . import views, data_views
+from . import views
 
 urlpatterns = [
     url(r'^region/$', views.RegionBorderListView.as_view(),
@@ -16,11 +13,26 @@ urlpatterns = [
     url(
         r'^region/update/(?P<pk>[0-9]+)$', views.RegionBorderUpdate.as_view(),
         name='region_update'),
-
-    url(r'^regions.data/', data_views.region_view, name='region_view'),
-    url(r'^$', TemplateView.as_view(
-        template_name='world/regions.html'), name='regions'),
+    url(r'^world/$', views.WorldBorderListView.as_view(),
+        name='world_list'),
     url(
-        r'^data.geojson$', GeoJSONLayerView.as_view(
-            model=WorldBorder, properties=('name')), name='data')
+        r'^world/(?P<pk>[0-9]+)$', views.WorldBorderDetailView.as_view(),
+        name='world_detail'),
+    url(
+        r'^world/create/$', views.WorldBorderCreate.as_view(),
+        name='world_create'),
+    url(
+        r'^world/update/(?P<pk>[0-9]+)$', views.WorldBorderUpdate.as_view(),
+        name='world_update'),
+    url(r'^austria/$', views.AustriaBordersListView.as_view(),
+        name='austria_list'),
+    url(
+        r'^austria/(?P<pk>[0-9]+)$', views.AustriaBordersDetailView.as_view(),
+        name='austria_detail'),
+    url(
+        r'^austria/create/$', views.AustriaBordersCreate.as_view(),
+        name='austria_create'),
+    url(
+        r'^austria/update/(?P<pk>[0-9]+)$', views.AustriaBordersUpdate.as_view(),
+        name='austria_update'),
 ]
