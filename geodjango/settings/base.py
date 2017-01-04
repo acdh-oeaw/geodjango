@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_tables2',
     'rest_framework',
+    'rest_framework_gis',
     'djgeojson',
     'leaflet',
     'webpage',

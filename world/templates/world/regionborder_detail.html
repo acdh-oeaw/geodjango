@@ -1,0 +1,43 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+	<link rel="stylesheet" href="{% static 'world/leaflet/leaflet.css' %}"/></link>
+   	<link rel="stylesheet" href="{% static 'world/leaflet.markercluster/dist/MarkerCluster.css' %}"/></link>
+  	<link rel="stylesheet" href="{% static 'world/leaflet.markercluster/dist/MarkerCluster.Default.css' %}"/></link>
+    <script src="{% static 'world/leaflet/leaflet.js' %}"></script>
+    <script src="{% static 'world/leaflet.markercluster/src/leaflet.markercluster-src.js' %}"></script>
+    <script src="{% static 'world/leaflet.ajax/leaflet.ajax.js' %}"></script>
+
+<h1>{{ object }}</h1>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Name</th>
+        <td>{{ object.name }}</td>
+    </tr>
+    <tr>
+        <th>To geojson</th>
+        <td><a href="{% url 'region-detail' pk=object.pk %}?format=json">hansi</a></td>
+    </tr>
+</table>
+{% if user.is_authenticated %}
+<a class="btn btn-primary" href="{% url 'world:region_update' pk=object.pk %}" role="button">edit cluster</a>
+{% endif %}
+<style>
+	#map { height: 800px; }
+</style>
+<div id="map"/>
+<script type="text/javascript">
+        var mymap = L.map('map', {
+          fullscreenControl: true,
+          }).setView([{{ object.latitude }}, {{ object.longitude }}], 8);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.light',
+        accessToken: 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
+        }).addTo(mymap);
+        var geojsonLayer = L.geoJson.ajax("{% url 'region-detail' pk=object.pk %}?format=json").addTo(mymap);
+</script>
+{% endblock %}

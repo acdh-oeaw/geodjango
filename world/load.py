@@ -133,7 +133,7 @@ def import_austria(verbose=True):
 def import_regions(verbose=True):
     lm = LayerMapping(
         RegionBorder, region_shp, regionborder_mapping,
-        transform=False, encoding='iso-8859-1',
+        transform=False, encoding='utf-8',
     )
     lm.save(strict=True, verbose=verbose)
 
@@ -141,6 +141,6 @@ def import_regions(verbose=True):
 def import_countries(verbose=True):
     lm = LayerMapping(
         WorldBorder, world_shp, worlboarder_mapping,
-        transform=False, encoding='iso-8859-1',
+        transform=False, encoding='utf-8',
     )
     lm.save(strict=True, verbose=verbose)

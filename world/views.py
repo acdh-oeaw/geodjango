@@ -8,19 +8,19 @@ from .forms import RegionBorderForm
 class RegionBorderDetailView(DetailView):
 
     model = RegionBorder
-    template_name = 'world/regionboarder_detail.html'
+    template_name = 'world/regionborder_detail.html'
 
 
 class RegionBorderListView(ListView):
 
     model = RegionBorder
-    template_name = 'world/regionboarder_list.html'
+    template_name = 'world/regionborder_list.html'
 
 
 class RegionBorderCreate(CreateView):
 
     model = RegionBorder
-    template_name = 'world/regionboarder_create.html'
+    template_name = 'world/regionborder_create.html'
     form_class = RegionBorderForm
 
 
@@ -28,4 +28,4 @@ class RegionBorderUpdate(UpdateView):
 
     model = RegionBorder
     form_class = RegionBorderForm
-    template_name = 'world/regionboarder_create.html'
+    template_name = 'world/regionborder_create.html'

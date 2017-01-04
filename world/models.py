@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.core.urlresolvers import reverse
 
 # automatically genereated by
 # $ python manage.py ogrinspect world/data/TM_WORLD_BORDERS/TM_WORLD_BORDERS-0.3.shp WorldBorder
@@ -86,6 +87,9 @@ class RegionBorder(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('world:region_detail', kwargs={'pk': self.id})
 
 
 # This is an auto-generated Django model module created by ogrinspect.
