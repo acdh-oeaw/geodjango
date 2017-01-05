@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^region/$', views.RegionBorderListView.as_view(),
+    url(r'^region/$', views.RegionBorderFilterView.as_view(),
         name='region_list'),
     url(
         r'^region/(?P<pk>[0-9]+)$', views.RegionBorderDetailView.as_view(),
@@ -13,18 +13,17 @@ urlpatterns = [
     url(
         r'^region/update/(?P<pk>[0-9]+)$', views.RegionBorderUpdate.as_view(),
         name='region_update'),
-    url(r'^world/$', views.WorldBorderListView.as_view(),
-        name='world_list'),
+    url(
+        r'^world/$', views.WorldBorderFilterView.as_view(), name='world_list'),
     url(
         r'^world/(?P<pk>[0-9]+)$', views.WorldBorderDetailView.as_view(),
         name='world_detail'),
     url(
-        r'^world/create/$', views.WorldBorderCreate.as_view(),
-        name='world_create'),
+        r'^world/create/$', views.WorldBorderCreate.as_view(), name='world_create'),
     url(
         r'^world/update/(?P<pk>[0-9]+)$', views.WorldBorderUpdate.as_view(),
         name='world_update'),
-    url(r'^austria/$', views.AustriaBordersListView.as_view(),
+    url(r'^austria/$', views.AustriaBordersFilterView.as_view(),
         name='austria_list'),
     url(
         r'^austria/(?P<pk>[0-9]+)$', views.AustriaBordersDetailView.as_view(),

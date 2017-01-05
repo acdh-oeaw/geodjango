@@ -1,8 +1,60 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
+from django_tables2 import SingleTableView, RequestConfig
 from .models import RegionBorder, AustriaBorders, WorldBorder
 from .forms import RegionBorderForm, AustriaBordersForm, WorldBorderForm
+from .filters import *
+from .forms import *
+from .tables import *
+
+
+class GenericListView(SingleTableView):
+    filter_class = None
+    formhelper_class = None
+    context_filter_name = 'filter'
+    paginate_by = 25
+
+    def get_queryset(self, **kwargs):
+        qs = super(GenericListView, self).get_queryset()
+        self.filter = self.filter_class(self.request.GET, queryset=qs)
+        self.filter.form.helper = self.formhelper_class()
+        return self.filter.qs
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by}).configure(table)
+        return table
+
+    def get_context_data(self, **kwargs):
+        context = super(GenericListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        return context
+
+
+class RegionBorderFilterView(GenericListView):
+    model = RegionBorder
+    table_class = RegionBorderTable
+    template_name = 'world/region_filter.html'
+    filter_class = RegionBorderListFilter
+    formhelper_class = GenericFilterFormHelper
+
+
+class AustriaBordersFilterView(GenericListView):
+    model = AustriaBorders
+    table_class = AustriaBordersTable
+    template_name = 'world/austria_filter.html'
+    filter_class = AustriaBordersListFilter
+    formhelper_class = GenericFilterFormHelper
+
+
+class WorldBorderFilterView(GenericListView):
+    model = WorldBorder
+    table_class = WorldBorderTable
+    template_name = 'world/world_filter.html'
+    filter_class = WorldBorderListFilter
+    formhelper_class = GenericFilterFormHelper
 
 
 class RegionBorderDetailView(DetailView):

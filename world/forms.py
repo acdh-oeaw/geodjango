@@ -4,6 +4,15 @@ from crispy_forms.layout import Submit
 from .models import RegionBorder, WorldBorder, AustriaBorders
 
 
+class GenericFilterFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super(GenericFilterFormHelper, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.form_class = 'genericFilterForm'
+        self.form_method = 'GET'
+        self.add_input(Submit('Filter', 'Filter'))
+
+
 class RegionBorderForm(forms.ModelForm):
     class Meta:
         model = RegionBorder
