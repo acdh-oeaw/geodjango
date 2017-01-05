@@ -40,4 +40,9 @@ urlpatterns = [
         dal_views.CountryNamesAC.as_view(),
         name='country_names',
     ),
+    url(
+        r'^region-names/$',
+        dal_views.RegionNamesAC.as_view(),
+        name='region_names',
+    ),
 ]

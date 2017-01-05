@@ -25,7 +25,7 @@
     </tr>
 </table>
 {% if user.is_authenticated %}
-<a class="btn btn-primary" href="{% url 'world:region_update' pk=object.pk %}" role="button">edit cluster</a>
+<a class="btn btn-primary" href="{% url 'world:region_update' pk=object.pk %}" role="button">edit region</a>
 {% endif %}
 <style>
 	#map { height: 800px; }

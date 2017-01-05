@@ -88,6 +88,11 @@ class WorldBorderDetailView(DetailView):
     model = WorldBorder
     template_name = 'world/worldborder_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(WorldBorderDetailView, self).get_context_data(**kwargs)
+        context["regions"] = RegionBorder.objects.filter(country=self.kwargs.get('pk'))
+        return context
+
 
 class WorldBorderListView(ListView):
 

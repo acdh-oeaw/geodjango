@@ -37,6 +37,10 @@ class WorldBorderListFilter(django_filters.FilterSet):
 
 
 class RegionBorderListFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(
+        lookup_expr='icontains', label='Region Name',
+        help_text=False, widget=autocomplete.ListSelect2(url='world:region_names')
+    )
     admin = django_filters.CharFilter(
         lookup_expr='icontains', label='Country',
         help_text=False, widget=autocomplete.ListSelect2(url='world:country_names')
@@ -44,4 +48,4 @@ class RegionBorderListFilter(django_filters.FilterSet):
 
     class Meta:
         model = RegionBorder
-        fields = ['admin']
+        fields = ['admin', 'name']
