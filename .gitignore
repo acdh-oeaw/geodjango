@@ -7,6 +7,7 @@ __pycache__/
 
 /db.sqlite3
 /geodjango/settings/mysql.py
+/geodjango/settings/remote.py
 /geodjango/settings/postgres.py
 /geodjango/settings/server.py
 /playAndTry.ipynb

@@ -11,7 +11,6 @@ django-tables2==1.2.6
 djangorestframework==3.5.3
 djangorestframework-gis==0.11
 entrypoints==0.2.2
-GDAL==2.1.2
 ipykernel==4.5.0
 ipython==5.1.0
 ipython-genutils==0.1.0
