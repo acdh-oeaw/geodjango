@@ -1,4 +1,5 @@
 import django_filters
+from dal import autocomplete
 from .models import WorldBorder, RegionBorder, AustriaBorders
 
 django_filters.filters.LOOKUP_TYPES = [
@@ -31,6 +32,11 @@ class WorldBorderListFilter(django_filters.FilterSet):
 
 
 class RegionBorderListFilter(django_filters.FilterSet):
+    admin = django_filters.CharFilter(
+        lookup_expr='icontains', label='Country',
+        help_text=False, widget=autocomplete.ListSelect2(url='world:country_names')
+    )
 
     class Meta:
         model = RegionBorder
+        fields = ['admin']

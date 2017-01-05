@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from . import dal_views
 
 urlpatterns = [
     url(r'^region/$', views.RegionBorderFilterView.as_view(),
@@ -34,4 +35,9 @@ urlpatterns = [
     url(
         r'^austria/update/(?P<pk>[0-9]+)$', views.AustriaBordersUpdate.as_view(),
         name='austria_update'),
+    url(
+        r'^country-names/$',
+        dal_views.CountryNamesAC.as_view(),
+        name='country_names',
+    ),
 ]
