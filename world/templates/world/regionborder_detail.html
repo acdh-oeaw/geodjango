@@ -15,10 +15,12 @@
         <th>Name</th>
         <td>{{ object.name }}</td>
     </tr>
+    {% if object.country %}
     <tr>
         <th>Country</th>
         <td><a href="{% url 'world:world_detail' pk=object.country.id %}">{{ object.country.name }}</a></td>
     </tr>
+    {% endif %}
     <tr>
         <th>To geojson</th>
         <td><a href="{% url 'region-detail' pk=object.pk %}?format=json">to geojson</a></td>
