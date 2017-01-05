@@ -16,6 +16,10 @@
         <td>{{ object.name }}</td>
     </tr>
     <tr>
+        <th>Country</th>
+        <td><a href="{% url 'world:world_detail' pk=object.country.id %}">{{ object.country.name }}</a></td>
+    </tr>
+    <tr>
         <th>To geojson</th>
         <td><a href="{% url 'region-detail' pk=object.pk %}?format=json">to geojson</a></td>
     </tr>

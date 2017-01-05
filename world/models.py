@@ -42,6 +42,7 @@ class WorldBorder(models.Model):
 
 
 class RegionBorder(models.Model):
+    country = models.ForeignKey(WorldBorder, blank=True, null=True)
     adm1_code = models.CharField(null=True, blank=True, max_length=10)
     objectid_1 = models.IntegerField(null=True, blank=True)
     diss_me = models.IntegerField(null=True, blank=True)

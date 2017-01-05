@@ -144,3 +144,14 @@ def import_countries(verbose=True):
         transform=False, encoding='utf-8',
     )
     lm.save(strict=True, verbose=verbose)
+
+
+def link_region2country(verbose=True):
+    regions = RegionBorder.objects.all()
+    for x in regions:
+        try:
+            temp_country, _ = WorldBorder.objects.get_or_create(name=x.admin)
+            x.country = temp_country
+            x.save()
+        except:
+            print("ERROR", x)
