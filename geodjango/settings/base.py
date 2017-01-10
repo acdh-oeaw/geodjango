@@ -141,5 +141,6 @@ LEAFLET_CONFIG = {
             'id': 'mapbox.light',
         }),
         ('czoernig', 'http://127.0.0.1/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/czoernig.map&mode=tile&layers=czoernig&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
+        ('dinamlex', 'http://127.0.0.1/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/dinamlex.map&mode=tile&layers=dinamlex&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
     ]
 }
