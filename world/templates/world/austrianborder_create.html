@@ -1,8 +1,19 @@
 {% extends "webpage/base.html" %}
+{% load leaflet_tags %}
 {% block Titel %} Create/Modify Region {% endblock %} 
 {% block content %}
+{% leaflet_js plugins="forms" %}
+{% leaflet_css plugins="forms" %}
 
 {% load crispy_forms_tags %}
+
+<style>
+
+    .leaflet-container {  /* all maps */
+        height: 800px;
+    }
+
+</style>
 
 <div class="container">
 <div class="panel panel-default">
