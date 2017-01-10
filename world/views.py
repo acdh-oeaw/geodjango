@@ -2,7 +2,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django_tables2 import SingleTableView, RequestConfig
-from .models import RegionBorder, AustriaBorders, WorldBorder
+from .models import RegionBorder, AustriaBorders, WorldBorder, Area
 from .forms import RegionBorderForm, AustriaBordersForm, WorldBorderForm
 from .filters import *
 from .forms import *
@@ -54,6 +54,14 @@ class WorldBorderFilterView(GenericListView):
     table_class = WorldBorderTable
     template_name = 'world/world_filter.html'
     filter_class = WorldBorderListFilter
+    formhelper_class = GenericFilterFormHelper
+
+
+class AreaFilterView(GenericListView):
+    model = Area
+    table_class = AreaTable
+    template_name = 'world/area_filter.html'
+    filter_class = AreaListFilter
     formhelper_class = GenericFilterFormHelper
 
 
@@ -138,3 +146,30 @@ class AustriaBordersUpdate(UpdateView):
     model = AustriaBorders
     form_class = AustriaBordersForm
     template_name = 'world/austrianborder_create.html'
+
+
+class AreaDetailView(DetailView):
+
+    model = Area
+    template_name = 'world/area_detail.html'
+
+
+class AreaListView(ListView):
+
+    model = Area
+    template_name = 'world/area_list.html'
+
+
+class AreaCreate(CreateView):
+
+    model = Area
+    template_name = 'world/area_create.html'
+    form_class = AreaForm
+
+
+class AreaUpdate(UpdateView):
+
+    model = Area
+    form_class = AreaForm
+    template_name = 'world/area_create.html'
+

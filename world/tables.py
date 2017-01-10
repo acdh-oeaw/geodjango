@@ -1,6 +1,6 @@
 import django_tables2 as tables
 from django_tables2.utils import A
-from .models import WorldBorder, RegionBorder, AustriaBorders
+from .models import WorldBorder, RegionBorder, AustriaBorders, Area
 
 
 class WorldBorderTable(tables.Table):
@@ -31,4 +31,13 @@ class AustriaBordersTable(tables.Table):
     class Meta:
         model = AustriaBorders
         fields = ['kg']
+        attrs = {"class": "table table-hover table-striped table-condensed"}
+
+
+class AreaTable(tables.Table):
+    name = tables.LinkColumn('world:area_detail', args=[A('pk')])
+
+    class Meta:
+        model = Area
+        fields = ['name']
         attrs = {"class": "table table-hover table-striped table-condensed"}

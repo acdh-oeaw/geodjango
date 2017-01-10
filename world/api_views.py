@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import RegionBorder, AustriaBorders, WorldBorder
-from .serializers import RegionBorderSerializer, AustriaBordersSerializer, WorldBorderSerializer
+from .models import RegionBorder, AustriaBorders, WorldBorder, Area
+from .serializers import *
 
 
 class RegionBorderViewSet(viewsets.ModelViewSet):
@@ -19,3 +19,9 @@ class WorldBorderViewSet(viewsets.ModelViewSet):
 
     queryset = WorldBorder.objects.all()
     serializer_class = WorldBorderSerializer
+
+
+class AreaViewSet(viewsets.ModelViewSet):
+
+    queryset = Area.objects.all()
+    serializer_class = AreaSerializer

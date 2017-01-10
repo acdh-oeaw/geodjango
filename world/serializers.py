@@ -1,5 +1,5 @@
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
-from .models import RegionBorder, AustriaBorders, WorldBorder
+from .models import RegionBorder, AustriaBorders, WorldBorder, Area
 
 
 class RegionBorderSerializer(GeoFeatureModelSerializer):
@@ -27,3 +27,12 @@ class WorldBorderSerializer(GeoFeatureModelSerializer):
         model = WorldBorder
         geo_field = "geom"
         fields = ['name', 'iso2', 'lon', 'lat']
+
+
+class AreaSerializer(GeoFeatureModelSerializer):
+    """ A class to serialize locations as GeoJSON compatible data """
+
+    class Meta:
+        model = Area
+        geo_field = "geom"
+        fields = ['name', 'geonames_id', 'legacy_properties', 'start_date', 'end_date']

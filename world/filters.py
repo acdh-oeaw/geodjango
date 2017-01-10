@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from .models import WorldBorder, RegionBorder, AustriaBorders
+from .models import WorldBorder, RegionBorder, AustriaBorders, Area
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -49,3 +49,9 @@ class RegionBorderListFilter(django_filters.FilterSet):
     class Meta:
         model = RegionBorder
         fields = ['admin', 'name']
+
+
+class AreaListFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Area

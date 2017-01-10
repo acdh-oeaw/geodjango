@@ -2,6 +2,7 @@ from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.postgres.fields import HStoreField
 from datetime import datetime
+from .validators import date_validator
 import re
 # automatically genereated by
 # $ python manage.py ogrinspect world/data/TM_WORLD_BORDERS/TM_WORLD_BORDERS-0.3.shp WorldBorder
@@ -167,10 +168,9 @@ class Source(models.Model):
 
 class Area(models.Model):
     name = models.CharField(max_length=255)
-    source = models.ForeignKey(blank=True)
+    source = models.ForeignKey('Source', blank=True, null=True)
     geonames_id = models.IntegerField(blank=True, null=True)
     legacy_properties = HStoreField(blank=True, null=True)
-    geom = models.MultiPolygonField()
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     start_date_written = models.CharField(
@@ -181,6 +181,7 @@ class Area(models.Model):
         max_length=255, blank=True, null=True,
         validators=[date_validator, ], verbose_name="End",
         help_text="Please enter a date (DD).(MM).YYYY")
+    geom = models.MultiPolygonField()
 
 
     def save(self, *args, **kwargs):
@@ -218,3 +219,25 @@ class Area(models.Model):
             self.end_date, self.end_date_written = match_date(self.end_date_written)
         super(Area, self).save(*args, **kwargs)
         return self
+
+    @property
+    def centroid(self):
+        centroid = self.geom.centroid
+        coordinates = [centroid.y, centroid.x]
+        return coordinates
+
+    @property
+    def longitude(self):
+        centroid = self.geom.centroid
+        return centroid.y
+
+    @property
+    def latitude(self):
+        centroid = self.geom.centroid
+        return centroid.x
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('world:area_detail', kwargs={'pk': self.id})

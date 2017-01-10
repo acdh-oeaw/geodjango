@@ -23,6 +23,7 @@ router = routers.DefaultRouter()
 router.register(r'regions', api_views.RegionBorderViewSet, base_name='region')
 router.register(r'world', api_views.WorldBorderViewSet, base_name='world')
 router.register(r'austria', api_views.AustriaBordersViewSet, base_name='austria')
+router.register(r'area', api_views.AreaViewSet, base_name='area')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
