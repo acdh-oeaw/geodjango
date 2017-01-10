@@ -140,7 +140,7 @@ LEAFLET_CONFIG = {
             'maxZoom': 18,
             'id': 'mapbox.light',
         }),
-        ('czoernig', 'https://maps.acdh.oeaw.ac.at/mapserv?map=/data/test.map&mode=tile&layers=test&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
-        ('dinamlex', 'https://maps.acdh.oeaw.ac.at/mapserv?map=/data/czoernig.map&mode=tile&layers=czoernig&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
+        ('dinamlex', 'https://maps.acdh.oeaw.ac.at/mapserv?map=/data/test.map&mode=tile&layers=test&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
+        ('czoernig', 'https://maps.acdh.oeaw.ac.at/mapserv?map=/data/czoernig.map&mode=tile&layers=czoernig&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
     ]
 }
