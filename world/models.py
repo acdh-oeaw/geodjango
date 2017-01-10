@@ -1,5 +1,8 @@
 from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
+from django.contrib.postgres.fields import HStoreField
+from datetime import datetime
+import re
 # automatically genereated by
 # $ python manage.py ogrinspect world/data/TM_WORLD_BORDERS/TM_WORLD_BORDERS-0.3.shp WorldBorder
 
@@ -154,3 +157,64 @@ class AustriaBorders(models.Model):
 
     def get_absolute_url(self):
         return reverse('world:austria_detail', kwargs={'pk': self.id})
+
+
+class Source(models.Model):
+    name = models.CharField(max_length=255)
+    original_url = models.URLField(blank=True, null=True)
+    downloaded = models.DateTimeField(blank=True, null=True)
+
+
+class Area(models.Model):
+    name = models.CharField(max_length=255)
+    source = models.ForeignKey(blank=True)
+    geonames_id = models.IntegerField(blank=True, null=True)
+    legacy_properties = HStoreField(blank=True, null=True)
+    geom = models.MultiPolygonField()
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    start_date_written = models.CharField(
+        max_length=255, blank=True, null=True,
+        validators=[date_validator, ], verbose_name="Start",
+        help_text="Please enter a date (DD).(MM).YYYY")
+    end_date_written = models.CharField(
+        max_length=255, blank=True, null=True,
+        validators=[date_validator, ], verbose_name="End",
+        help_text="Please enter a date (DD).(MM).YYYY")
+
+
+    def save(self, *args, **kwargs):
+        """Adaption of the save() method of the class to automatically parse string-dates into date objects
+        """
+        def match_date(date):
+            """Function to parse string-dates into python date objects.
+            """
+            date = date.strip()
+            date = date.replace('-', '.')
+            if re.match(r'[0-9]{4}$', date):
+                dr = datetime.strptime(date, '%Y')
+                dr2 = date
+            elif re.match(r'[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4}$', date):
+                dr = datetime.strptime(date, '%d.%m.%Y')
+                dr2 = date
+            elif re.match(r'[0-9]{4}\.\.\.$', date):
+                dr = datetime.strptime(date, '%Y...')
+                dr2 = re.match(r'([0-9]{4})\.\.\.$', date).group(1)
+            elif re.match(r'[0-9]{4}\.[0-9]{1,2}\.\.$', date):
+                dr = datetime.strptime(date, '%Y.%m..')
+                dr2 = re.match(r'([0-9]{4})\.([0-9]{1,2})\.\.$', date).group(2)
+                +'.'+re.match(r'([0-9]{4})\.([0-9]{1,2})\.\.$', date).group(1)
+            elif re.match(r'[0-9]{4}\.[0-9]{1,2}\.[0-9]{1,2}$', date):
+                dr = datetime.strptime(date, '%Y.%m.%d')
+                dr3 = re.match(r'([0-9]{4})\.([0-9]{1,2})\.([0-9]{1,2})$', date)
+                dr2 = dr3.group(3)+'.'+dr3.group(2)+'.'+dr3.group(1)
+            else:
+                dr = None
+                dr2 = dr2 = date
+            return dr, dr2
+        if self.start_date_written:
+            self.start_date, self.start_date_written = match_date(self.start_date_written)
+        if self.end_date_written:
+            self.end_date, self.end_date_written = match_date(self.end_date_written)
+        super(Area, self).save(*args, **kwargs)
+        return self
