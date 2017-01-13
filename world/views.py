@@ -161,6 +161,23 @@ class AreaDetailView(DetailView):
     model = Area
     template_name = 'world/area_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(AreaDetailView, self).get_context_data(**kwargs)
+        object_ids = [x.id for x in Area.objects.all()]
+        self_id = int(self.kwargs['pk'])
+        if self_id == object_ids[-1]:
+            next_entry = None
+        else:
+            next_entry = object_ids[object_ids.index(self_id) + 1]
+        context["next_entry"] = next_entry
+
+        if object_ids.index(self_id) == 0:
+            previous_entry = None
+        else:
+            previous_entry = object_ids[object_ids.index(self_id) - 1]
+        context["previous_entry"] = previous_entry
+        return context
+
 
 class AreaListView(ListView):
 
