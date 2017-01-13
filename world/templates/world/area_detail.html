@@ -56,7 +56,7 @@
               <table class="table table-bordered table-striped table-hover">
                 <tr>
                     <th>source</th>
-                    <td>{{ object.source }} <small><a href="{{ object.source.original_url }}">[download source]</a></small></td>
+                    <td><a href="{% url 'world:source_detail' pk=object.source.id %}"> {{ object.source }} <a href="{{ object.source.original_url }}"><span data-toggle="modal" data-target="#myModal" title="download original data set" class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                     <th>legacy_properties</th>
