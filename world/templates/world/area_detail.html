@@ -21,7 +21,7 @@
     </tr>
     <tr>
         <th>legacy_properties</th>
-        <td>{{ object.legacy_properties }}</td>
+        <td>{% for key, value in object.legacy_properties.items %} {{ key }}: {{ value}} <br/>{% endfor %}</td>
     </tr>
     <tr>
         <th>start_date</th>
@@ -44,16 +44,31 @@
 </style>
 <div id="map"/>
 <script type="text/javascript">
+        
         var mymap = L.map('map', {
           fullscreenControl: true,
           }).setView([{{ object.longitude }} ,{{ object.latitude }}], 10);
 
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        var baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox.light',
-        accessToken: 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
-        }).addTo(mymap);
-        var geojsonLayer = L.geoJson.ajax("{% url 'area-detail' pk=object.pk %}?format=json").addTo(mymap);
+        accessToken: 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ',
+        });
+
+        baseLayer.addTo(mymap);
+
+        L.geoJson.ajax("{% url 'area-detail' pk=object.pk %}?format=json").addTo(mymap);
+
+        var defaultLayers = {
+            "Default": baseLayer
+        }
+        
+        var overlayMaps = {
+            "Dinamlex": L.tileLayer('https://maps.acdh.oeaw.ac.at/mapserv?map=/data/test.map&mode=tile&layers=test&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
+            "Tirol": L.tileLayer('https://maps.acdh.oeaw.ac.at/mapserv?map=/data/tirol.map&mode=tile&layers=tirol&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
+            "Czoernig": L.tileLayer('https://maps.acdh.oeaw.ac.at/mapserv?map=/data/czoernig.map&mode=tile&layers=czoernig&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7})
+        };
+        L.control.layers(defaultLayers, overlayMaps).addTo(mymap);
 </script>
 {% endblock %}
