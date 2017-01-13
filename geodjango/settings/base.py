@@ -143,5 +143,6 @@ LEAFLET_CONFIG = {
         }),
         ('dinamlex', 'https://maps.acdh.oeaw.ac.at/mapserv?map=/data/test.map&mode=tile&layers=test&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
         ('czoernig', 'https://maps.acdh.oeaw.ac.at/mapserv?map=/data/czoernig.map&mode=tile&layers=czoernig&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
+        ('tirol', 'https://maps.acdh.oeaw.ac.at/mapserv?map=/data/tirol.map&mode=tile&layers=tirol&tilemode=gmap&tile={x}+{y}+{z}', {'maxZoom': 18, 'opacity': 0.7}),
     ]
 }
