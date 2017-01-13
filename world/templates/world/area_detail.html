@@ -50,14 +50,10 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Modal Header</h4>
+              <h4 class="modal-title" style="text-align:center;">{{ object.name }}</h4>
             </div>
             <div class="modal-body">
               <table class="table table-bordered table-striped table-hover">
-                <tr>
-                    <th>Name</th>
-                    <td>{{ object.name }}</td>
-                </tr>
                 <tr>
                     <th>source</th>
                     <td>{{ object.source }} <small><a href="{{ object.source.original_url }}">[download source]</a></small></td>
