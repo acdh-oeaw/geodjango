@@ -182,6 +182,7 @@ class Area(models.Model):
         validators=[date_validator, ], verbose_name="End",
         help_text="Please enter a date (DD).(MM).YYYY")
     geom = models.MultiPolygonField()
+    objects = models.GeoManager()
 
 
     def save(self, *args, **kwargs):
