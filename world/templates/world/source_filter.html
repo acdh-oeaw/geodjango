@@ -1,0 +1,16 @@
+{% extends "world/generic_list.html" %}
+{% block Titel %}Browse Source{% endblock %}
+{% block list_title %}Browse Source
+    {% if user.is_authenticated %}
+        | <a class ="btn btn-success"  href="{% url 'world:source_create' %}">Create new Source</a>
+    {% endif %}
+{% endblock %}
+
+{% block reset_button %}
+<!-- <a class ="btn btn-default"  id="01">Show/Hide Advanced search options</a></br> -->
+ <p></p>
+ <a class ="btn btn-default"  href="{% url 'world:source_list' %}">Reset search</a>     
+{% endblock %}
+
+{% block customScripts %}
+{% endblock %}

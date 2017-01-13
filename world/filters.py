@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from .models import WorldBorder, RegionBorder, AustriaBorders, Area
+from .models import WorldBorder, RegionBorder, AustriaBorders, Area, Source
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -60,3 +60,10 @@ class AreaListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Area
+
+
+class SourceListFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Source
+        fields = ['name', 'original_url', 'downloaded']

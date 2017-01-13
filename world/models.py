@@ -165,6 +165,12 @@ class Source(models.Model):
     original_url = models.URLField(blank=True, null=True)
     downloaded = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('world:source_detail', kwargs={'pk': self.id})
+
 
 class Area(models.Model):
     name = models.CharField(max_length=255)
