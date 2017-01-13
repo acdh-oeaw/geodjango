@@ -1,5 +1,5 @@
 from dal import autocomplete
-from .models import RegionBorder
+from .models import RegionBorder, Area
 
 
 class CountryNamesAC(autocomplete.Select2ListView):
@@ -16,3 +16,11 @@ class RegionNamesAC(autocomplete.Select2ListView):
         regions = RegionBorder.objects.filter(name__icontains=self.q)
         region_names = set([x.name for x in regions])
         return region_names
+
+
+class AreaNamesAC(autocomplete.Select2ListView):
+
+    def get_list(self):
+        regions = Area.objects.filter(name__icontains=self.q)
+        names = set([x.name for x in regions])
+        return names

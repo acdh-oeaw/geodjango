@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^', include('webpage.urls', namespace='webpage')),
     url(r'^datamodel/', include('django_spaghetti.urls', namespace='datamodel')),
     url(r'^world/', include('world.urls', namespace='world')),
+    url(r'^world-ac/', include('world.dal_urls', namespace='world-ac')),
 ]

@@ -46,14 +46,4 @@ urlpatterns = [
     url(
         r'^area/update/(?P<pk>[0-9]+)$', views.AreaUpdate.as_view(),
         name='area_update'),
-    url(
-        r'^country-names/$',
-        dal_views.CountryNamesAC.as_view(),
-        name='country_names',
-    ),
-    url(
-        r'^region-names/$',
-        dal_views.RegionNamesAC.as_view(),
-        name='region_names',
-    ),
 ]

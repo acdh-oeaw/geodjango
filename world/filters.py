@@ -28,7 +28,7 @@ class AustriaBordersListFilter(django_filters.FilterSet):
 class WorldBorderListFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(
         lookup_expr='icontains', label='Country',
-        help_text=False, widget=autocomplete.ListSelect2(url='world:country_names')
+        help_text=False, widget=autocomplete.ListSelect2(url='world-ac:country_names')
     )
 
     class Meta:
@@ -39,11 +39,11 @@ class WorldBorderListFilter(django_filters.FilterSet):
 class RegionBorderListFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(
         lookup_expr='icontains', label='Region Name',
-        help_text=False, widget=autocomplete.ListSelect2(url='world:region_names')
+        help_text=False, widget=autocomplete.ListSelect2(url='world-ac:region_names')
     )
     admin = django_filters.CharFilter(
         lookup_expr='icontains', label='Country',
-        help_text=False, widget=autocomplete.ListSelect2(url='world:country_names')
+        help_text=False, widget=autocomplete.ListSelect2(url='world-ac:country_names')
     )
 
     class Meta:
@@ -52,6 +52,11 @@ class RegionBorderListFilter(django_filters.FilterSet):
 
 
 class AreaListFilter(django_filters.FilterSet):
+
+    name = django_filters.CharFilter(
+        lookup_expr='icontains', label='Name',
+        help_text=False, widget=autocomplete.ListSelect2(url='world-ac:area_names')
+    )
 
     class Meta:
         model = Area
