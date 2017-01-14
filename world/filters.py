@@ -53,9 +53,13 @@ class RegionBorderListFilter(django_filters.FilterSet):
 
 class AreaListFilter(django_filters.FilterSet):
 
-    name = django_filters.CharFilter(
-        lookup_expr='icontains', label='Name',
-        help_text=False, widget=autocomplete.ListSelect2(url='world-ac:area_names')
+    name = django_filters.ModelMultipleChoiceFilter(
+        widget=autocomplete.Select2Multiple(url='world-ac:area-ac'),
+        queryset=Area.objects.all(),
+        #action='my_custom_filter',
+        lookup_expr='icontains',
+        label='Name',
+        help_text=False,
     )
 
     class Meta:

@@ -18,5 +18,8 @@ urlpatterns = [
         r'^area-names/$',
         dal_views.AreaNamesAC.as_view(),
         name='area_names',
-    )
+    ),
+    url(
+        r'^area-ac/$', dal_views.AreaModelAC.as_view(), name='area-ac',
+    ),
 ]
