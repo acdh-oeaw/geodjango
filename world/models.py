@@ -38,7 +38,6 @@ class Area(models.Model):
     geom = models.MultiPolygonField()
     objects = models.GeoManager()
 
-
     def save(self, *args, **kwargs):
         """Adaption of the save() method of the class to automatically parse string-dates into date objects
         """
@@ -59,19 +58,23 @@ class Area(models.Model):
             elif re.match(r'[0-9]{4}\.[0-9]{1,2}\.\.$', date):
                 dr = datetime.strptime(date, '%Y.%m..')
                 dr2 = re.match(r'([0-9]{4})\.([0-9]{1,2})\.\.$', date).group(2)
-                +'.'+re.match(r'([0-9]{4})\.([0-9]{1,2})\.\.$', date).group(1)
+                +'.' + \
+                    re.match(r'([0-9]{4})\.([0-9]{1,2})\.\.$', date).group(1)
             elif re.match(r'[0-9]{4}\.[0-9]{1,2}\.[0-9]{1,2}$', date):
                 dr = datetime.strptime(date, '%Y.%m.%d')
-                dr3 = re.match(r'([0-9]{4})\.([0-9]{1,2})\.([0-9]{1,2})$', date)
-                dr2 = dr3.group(3)+'.'+dr3.group(2)+'.'+dr3.group(1)
+                dr3 = re.match(
+                    r'([0-9]{4})\.([0-9]{1,2})\.([0-9]{1,2})$', date)
+                dr2 = dr3.group(3) + '.' + dr3.group(2) + '.' + dr3.group(1)
             else:
                 dr = None
                 dr2 = dr2 = date
             return dr, dr2
         if self.start_date_written:
-            self.start_date, self.start_date_written = match_date(self.start_date_written)
+            self.start_date, self.start_date_written = match_date(
+                self.start_date_written)
         if self.end_date_written:
-            self.end_date, self.end_date_written = match_date(self.end_date_written)
+            self.end_date, self.end_date_written = match_date(
+                self.end_date_written)
         super(Area, self).save(*args, **kwargs)
         return self
 
@@ -96,3 +99,41 @@ class Area(models.Model):
 
     def get_absolute_url(self):
         return reverse('world:area_detail', kwargs={'pk': self.id})
+
+
+class Label(models.Model):
+    CHOICES_LABELTYPE = (
+        ('alternateName', 'alternateName'),
+        ('officialName', 'officialName'),
+    )
+
+    name = models.CharField(max_length=255, blank=True)
+    label_type = models.CharField(
+        max_length=255, choices=CHOICES_LABELTYPE, blank=True)
+    iso_code = models.CharField(max_length=3, blank=True)
+    area = models.ForeignKey(Area, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class AreaArea(models.Model):
+
+	RELATIONTYPE_CHOICES = (
+		('parentCountry', 'parentCountry'),
+		('parentADM1', 'parentADM1'),
+		('parentADM2', 'parentADM2'),
+		('parentADM3', 'parentADM3'),
+		('predecessor', 'predecessor')
+	)
+	RELATIONTYPE_CHOICES_REVERSE = {
+		'parentCountry': 'ChildOfCountry',
+		'parentADM1': 'childADM1',
+		'parentADM2': 'childADM2',
+		'parentADM3': 'childADM3',
+		'predecessor': 'successor'
+	}
+
+	related_areaA = models.ForeignKey(Area, blank=True, null=True, related_name='related_areaA')
+	related_areaB = models.ForeignKey(Area, blank=True, null=True, related_name='related_areaB')
+	relation_type = models.CharField(max_length=50, choices=RELATIONTYPE_CHOICES, blank=True)
