@@ -119,21 +119,21 @@ class Label(models.Model):
 
 class AreaArea(models.Model):
 
-	RELATIONTYPE_CHOICES = (
-		('parentCountry', 'parentCountry'),
-		('parentADM1', 'parentADM1'),
-		('parentADM2', 'parentADM2'),
-		('parentADM3', 'parentADM3'),
-		('predecessor', 'predecessor')
-	)
-	RELATIONTYPE_CHOICES_REVERSE = {
-		'parentCountry': 'ChildOfCountry',
-		'parentADM1': 'childADM1',
-		'parentADM2': 'childADM2',
-		'parentADM3': 'childADM3',
-		'predecessor': 'successor'
-	}
+    RELATIONTYPE_CHOICES = (
+        ('parentCountry', 'parentCountry'),
+        ('parentADM1', 'parentADM1'),
+        ('parentADM2', 'parentADM2'),
+        ('parentADM3', 'parentADM3'),
+        ('predecessor', 'predecessor')
+    )
+    RELATIONTYPE_CHOICES_REVERSE = {
+        'parentCountry': 'ChildOfCountry',
+        'parentADM1': 'childADM1',
+        'parentADM2': 'childADM2',
+        'parentADM3': 'childADM3',
+        'predecessor': 'successor'
+    }
 
-	related_areaA = models.ForeignKey(Area, blank=True, null=True, related_name='related_areaA')
-	related_areaB = models.ForeignKey(Area, blank=True, null=True, related_name='related_areaB')
-	relation_type = models.CharField(max_length=50, choices=RELATIONTYPE_CHOICES, blank=True)
+    related_areaA = models.ForeignKey(Area, blank=True, null=True, related_name='related_areaA')
+    related_areaB = models.ForeignKey(Area, blank=True, null=True, related_name='related_areaB')
+    relation_type = models.CharField(max_length=50, choices=RELATIONTYPE_CHOICES, blank=True)
