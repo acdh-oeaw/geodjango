@@ -24,7 +24,6 @@ class AreaListFilter(django_filters.FilterSet):
     name = django_filters.ModelMultipleChoiceFilter(
         widget=autocomplete.Select2Multiple(url='world-ac:area-ac'),
         queryset=Area.objects.all(),
-        #action='my_custom_filter',
         lookup_expr='icontains',
         label='Name',
         help_text=False,

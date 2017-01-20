@@ -14,7 +14,7 @@ urlpatterns = [
     url(
         r'^area/update/(?P<pk>[0-9]+)$', views.AreaUpdate.as_view(),
         name='area_update'),
-        url(r'^source/$', views.SourceFilterView.as_view(),
+    url(r'^source/$', views.SourceFilterView.as_view(),
         name='source_list'),
     url(
         r'^source/(?P<pk>[0-9]+)$', views.SourceDetailView.as_view(),

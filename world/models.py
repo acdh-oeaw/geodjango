@@ -21,7 +21,11 @@ class Source(models.Model):
 
 
 class Area(models.Model):
+    political = models.NullBooleanField()
+    geographical = models.NullBooleanField()
+    historical = models.NullBooleanField()
     name = models.CharField(max_length=255)
+    area_type = models.CharField(max_length=255, blank=True, null=True, choices=TYPE_CHOICES)
     source = models.ForeignKey('Source', blank=True, null=True)
     geonames_id = models.IntegerField(blank=True, null=True)
     legacy_properties = HStoreField(blank=True, null=True)
@@ -124,7 +128,9 @@ class AreaArea(models.Model):
         ('parentADM1', 'parentADM1'),
         ('parentADM2', 'parentADM2'),
         ('parentADM3', 'parentADM3'),
-        ('predecessor', 'predecessor')
+        ('predecessor', 'predecessor'),
+        ('unspecified historical relation', 'unspecified historical relation'),
+        ('unspecified geographical relation', 'unspecified geographical relation'),
     )
     RELATIONTYPE_CHOICES_REVERSE = {
         'parentCountry': 'ChildOfCountry',
@@ -132,6 +138,8 @@ class AreaArea(models.Model):
         'parentADM2': 'childADM2',
         'parentADM3': 'childADM3',
         'predecessor': 'successor'
+        'unspecified historical relation': 'unspecified historical relation'
+        'unspecified geographical relation': 'unspecified geographical relation'
     }
 
     related_areaA = models.ForeignKey(Area, blank=True, null=True, related_name='related_areaA')

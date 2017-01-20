@@ -16,5 +16,5 @@ class AreaModelAC(autocomplete.Select2QuerySetView):
         qs = Area.objects.all()
         if self.q:
             qs = qs.filter(name__icontains=self.q)
-            
+
         return qs
