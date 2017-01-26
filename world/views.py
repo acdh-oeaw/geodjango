@@ -55,19 +55,15 @@ class AreaDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(AreaDetailView, self).get_context_data(**kwargs)
-        object_ids = [x.id for x in Area.objects.all()]
-        self_id = int(self.kwargs['pk'])
-        if self_id == object_ids[-1]:
-            next_entry = None
-        else:
-            next_entry = object_ids[object_ids.index(self_id) + 1]
-        context["next_entry"] = next_entry
-
-        if object_ids.index(self_id) == 0:
-            previous_entry = None
-        else:
-            previous_entry = object_ids[object_ids.index(self_id) - 1]
-        context["previous_entry"] = previous_entry
+        try:
+            context["next_entry"] = Area.objects.filter(id__gt=int(self.kwargs['pk']))[0].pk
+        except:
+            context["next_entry"] = None
+        try:
+            context["previous_entry"] = Area.objects.filter(id__lt=int(self.kwargs['pk']))[0].pk
+        except:
+            context["previous_entry"] = None
+        print(context['previous_entry'])
         return context
 
 
