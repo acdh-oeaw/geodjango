@@ -21,6 +21,13 @@ class Source(models.Model):
 
 
 class Area(models.Model):
+    TYPE_CHOICES = (
+        ('Country', 'Country'),
+        ('ADM1', 'ADM1'),
+        ('ADM2', 'ADM2'),
+        ('PPLC', 'PPLC'),
+        ('PPL', 'PPL')
+    )
     political = models.NullBooleanField()
     geographical = models.NullBooleanField()
     historical = models.NullBooleanField()
@@ -137,8 +144,8 @@ class AreaArea(models.Model):
         'parentADM1': 'childADM1',
         'parentADM2': 'childADM2',
         'parentADM3': 'childADM3',
-        'predecessor': 'successor'
-        'unspecified historical relation': 'unspecified historical relation'
+        'predecessor': 'successor',
+        'unspecified historical relation': 'unspecified historical relation',
         'unspecified geographical relation': 'unspecified geographical relation'
     }
 
