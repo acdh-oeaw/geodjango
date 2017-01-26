@@ -21,9 +21,11 @@ django_filters.filters.LOOKUP_TYPES = [
 
 class AreaListFilter(django_filters.FilterSet):
 
-    name = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='world-ac:area-ac'),
-        queryset=Area.objects.all(),
+    name = django_filters.CharFilter(
+        widget=autocomplete.Select2(
+            url='world-ac:area_names',
+            attrs={'data-minimum-input-length': 3}
+        ),
         lookup_expr='icontains',
         label='Name',
         help_text=False,
@@ -31,6 +33,7 @@ class AreaListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Area
+
 
 
 class SourceListFilter(django_filters.FilterSet):

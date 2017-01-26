@@ -26,7 +26,8 @@ class Area(models.Model):
         ('ADM1', 'ADM1'),
         ('ADM2', 'ADM2'),
         ('PPLC', 'PPLC'),
-        ('PPL', 'PPL')
+        ('PPL', 'PPL'),
+        ('', '---------'),
     )
     political = models.NullBooleanField()
     geographical = models.NullBooleanField()
