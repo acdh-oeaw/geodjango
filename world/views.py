@@ -59,7 +59,10 @@ class AreaDetailView(DetailView):
             context["next_entry"] = Area.objects.filter(id__gt=int(self.kwargs['pk']))[0].pk
         except:
             context["next_entry"] = None
-        prev = [x.id for x in Area.objects.filter(id__lt=int(self.kwargs['pk']))][-1]
+        try:
+            prev = [x.id for x in Area.objects.filter(id__lt=int(self.kwargs['pk']))][-1]
+        except:
+            prev = Area.objects.get(id=self.kwargs['pk'])
         try:
             Area.objects.get(id=int(prev)-1)
             context["previous_entry"] = prev
