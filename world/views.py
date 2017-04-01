@@ -59,8 +59,10 @@ class AreaDetailView(DetailView):
             context["next_entry"] = Area.objects.filter(id__gt=int(self.kwargs['pk']))[0].pk
         except:
             context["next_entry"] = None
+        prev = [x.id for x in Area.objects.filter(id__lt=int(self.kwargs['pk']))][-1]
         try:
-            context["previous_entry"] = Area.objects.filter(id__lt=int(self.kwargs['pk']))[0].pk
+            Area.objects.get(id=int(prev)-1)
+            context["previous_entry"] = prev
         except:
             context["previous_entry"] = None
         print(context['previous_entry'])
@@ -111,4 +113,3 @@ class SourceUpdate(UpdateView):
     model = Source
     form_class = SourceForm
     template_name = 'world/source_create.html'
-
